@@ -1,5 +1,7 @@
 package laur.springframework.services;
 
+import laur.springframework.converters.RecipeCommandToRecipe;
+import laur.springframework.converters.RecipeToRecipeCommand;
 import laur.springframework.domain.Recipe;
 import laur.springframework.repositories.RecipeRepository;
 import org.junit.Before;
@@ -21,11 +23,17 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
     @Test
     public void getRecipeByIdTest() throws Exception{
