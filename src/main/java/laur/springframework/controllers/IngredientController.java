@@ -2,6 +2,8 @@ package laur.springframework.controllers;
 
 
 import laur.springframework.commands.IngredientCommand;
+import laur.springframework.commands.RecipeCommand;
+import laur.springframework.commands.UnitOfMeasureCommand;
 import laur.springframework.services.IngredientService;
 import laur.springframework.services.RecipeService;
 import laur.springframework.services.UnitOfMeasureService;
@@ -44,6 +46,27 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId),
                 Long.valueOf(ingredientId)));
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model) {
+
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        // to do raise exception if null
+
+        //need to return back id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping

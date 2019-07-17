@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List Ingredients</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -24,15 +24,23 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="recipes" type="java.util.List"*/-->
 <!--/*@thymesVar id="recipe" type="laur.springframework.domain.Recipe"*/-->
+<!--/*@thymesVar id="ingredients" type="java.util.Set<laur.springframework.commands.IngredientCommand>"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="card">
 
                 <div class="card-header bg-primary text-white">
-                    <h5 class="card-title">Ingredients</h5>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5 class="card-title">Ingredients</h5>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="btn btn-light" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">New</a>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="card-body">
 
